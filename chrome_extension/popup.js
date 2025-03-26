@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                fetch("http://127.0.0.1:8000/biasbuster/analyze_news/", {
+                fetch("https://chrome-extension-d6vc.onrender.com", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ news_text: newsText })

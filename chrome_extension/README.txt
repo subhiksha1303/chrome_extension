@@ -14,5 +14,3 @@ BIAS BUSTER CHROME EXTENSION - SETUP INSTRUCTIONS
    - Visit any news website
    - Click the extension icon
    - Click "Analyze Bias"
-
-NOTE: The extension requires the Django server to be running on http://127.0.0.1:8000
