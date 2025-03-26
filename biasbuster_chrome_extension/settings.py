@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-veatw5$juchtl2!l6ze0dt&y=e7$)19-yemgu17c(w%4qqficn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://chrome-extension-d6vc.onrender.com"]
 
 
 # Application definition
@@ -58,9 +58,9 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
-    "chrome-extension://*"
+    "chrome-extension://*",
+    "https://chrome-extension-d6vc.onrender.com"
 ]
-
 
 ROOT_URLCONF = 'biasbuster_chrome_extension.urls'
 
