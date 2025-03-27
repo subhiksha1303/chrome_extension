@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                fetch("https://chrome-extension-d6vc.onrender.com", {
+                fetch("https://chrome-extension-d6vc.onrender.com/biasbuster/analyze_news/", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ news_text: newsText })

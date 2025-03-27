@@ -25,13 +25,7 @@ except LookupError:
 
 # ✅ Home Page Function
 def home(request):
-    return render(request, "index.html")
-
-def dashboard(request):
-    return render(request, 'home.html')  # Dashboard Page
-
-def about(request):
-    return render(request, 'about.html')
+   return JsonResponse({"message": "Bias Buster API is live!"})
 
 def extract_news_from_text(text):
     """Remove extra spaces and clean extracted text."""
