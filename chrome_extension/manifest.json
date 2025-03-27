@@ -4,7 +4,7 @@
     "version": "1.0",
     "description": "Analyze news articles for bias directly from your browser.",
     "permissions": ["activeTab", "scripting"],
-    "host_permissions": ["http://127.0.0.1:8000/*","https://chrome-extension-d6vc.onrender.com/biasbuster/analyze_news/*"],  
+    "host_permissions": ["http://127.0.0.1:8000/*","https://chrome-extension-d6vc.onrender.com/*"],  
     "background": {
       "service_worker": "background.js"
     },

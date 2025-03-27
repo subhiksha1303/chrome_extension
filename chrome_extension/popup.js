@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingDiv = document.getElementById('loading');
     const resultDiv = document.getElementById('result');
     const resultContent = document.getElementById('resultContent');
-    
+    const API_URL = "https://chrome-extension-d6vc.onrender.com/biasbuster/analyze_news/";
+
     analyzeBtn.addEventListener('click', function() {
         analyzeBtn.disabled = true;
         loadingDiv.style.display = 'flex';

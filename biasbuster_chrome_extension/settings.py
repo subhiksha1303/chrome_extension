@@ -10,33 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
-import pymysql
-pymysql.install_as_MySQLdb()
+"""
+Django settings for bias_checker project.
+"""
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+from pathlib import Path
+import os
+
+# ✅ Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ✅ Security settings
+SECRET_KEY = 'django-insecure-(_kz-2_(u3((3k(8hvo_n6kz@nkecaf2&=_sqt9yc$n!s$gm#a'
+DEBUG = True  # Set to False for production
+ALLOWED_HOSTS = ["*", "chrome-extension-d6vc.onrender.com", "127.0.0.1"]  # Allow localhost & deployed site
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-veatw5$juchtl2!l6ze0dt&y=e7$)19-yemgu17c(w%4qqficn'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [
-    '127.0.0.1', 
-    'localhost', 
-    'chrome-extension-d6vc.onrender.com'
-]
-
-
-
-# Application definition
-
+# ✅ Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,14 +33,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "rest_framework",
-    "corsheaders", 
-    "biasbuster_chrome_extension",
+    'corsheaders',
+    'rest_framework',
+    'biasbuster',
 ]
 
+# ✅ Middleware
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Static file handling in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,19 +51,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "chrome-extension://*",
-    "https://chrome-extension-d6vc.onrender.com"
-]
-
+# ✅ URL Configuration
 ROOT_URLCONF = 'biasbuster_chrome_extension.urls'
 
+# ✅ CORS Configuration (Fix Cross-Origin issues)
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = ["GET", "POST", "OPTIONS", "PUT", "DELETE"]
+CORS_ALLOW_HEADERS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000", 
+    "https://chrome-extension-d6vc.onrender.com"
+    "chrome-extension://gkkadbedeloiknhddaaeojfajnclpdbh"
+]
+
+# ✅ Templates Configuration
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "api/templates"],  # Ensure the template directory is correct
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,61 +81,43 @@ TEMPLATES = [
     },
 ]
 
+# ✅ WSGI Application
 WSGI_APPLICATION = 'biasbuster_chrome_extension.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+# ✅ Database Configuration (SQLite for simplicity)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-        "USER": "root",
-        "PASSWORD": "Subhiksha13",
-        "HOST": "localhost",
-        "PORT": "3306",
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
+# ✅ Password Validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
+# ✅ Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+# ✅ Static Files Configuration
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
+# ✅ Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+}
