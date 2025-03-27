@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-veatw5$juchtl2!l6ze0dt&y=e7$)19-yemgu17c(w%4qqficn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["chrome-extension-d6vc.onrender.com/biasbuster/analyze_news/", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    'localhost', 
+    'chrome-extension-d6vc.onrender.com'
+]
+
 
 
 # Application definition
